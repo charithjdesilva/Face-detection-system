@@ -20,3 +20,27 @@ To find the match we can use a Machine learning (classifier) method in here.
 -----Steps I followed to make it.
 
 First I had to download the C compiler. (Downloaded the Visual Studio 2022 community edtion -> from the installer -> Desktop development with C++)
+
+Then follwing packages.
+    opencv-python
+    numpy
+    cmake
+    dlib
+    face-recognition
+
+-------Implementing the project
+
+First we import packages cv2, numpy, face_recognition
+
+then we load training image and convert it to RGB
+then we load testing image and convert it to RGB
+
+After that we find the face location of the Training image, face location returns a list of 4 values. They are Top, right,bottom, and left
+Also, we encode the image with face_encoding()
+
+After that we find the face location of the Testing image
+Also, we encode the image with face_encoding()
+
+Then we compare the encodings, we use Linear SVM to find out whether they match or not
+results = face_recognition.compare_faces(known_face_encodings, face_encoding_to_check) we can give a list of face encoidngs
+
