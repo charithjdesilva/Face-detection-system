@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import face_recognition
 import os
+from datetime import datetime
 
 path = 'People'
 images = []
@@ -31,6 +32,22 @@ def findEncodings(images):
         encodeList.append(encodeOfImg)  # append the encode value to the encodeList
     return encodeList
 
+# Function to mark the attendance
+def markAttendance(name):
+    with open('Attendance.csv', 'r+') as f:     # open file for read and write at the same Time
+        prevAttendedList = f.readlines()    # if someone has already arrived we dont want to repeat it
+        nameList = []
+        for line in prevAttendedList:
+            entry = line.split(',')     # to seperate name and time
+            nameList.append(entry[0])   # will get us the all name list
+
+        if name not in nameList:
+            now = datetime.now()
+            dateTimeString = now.strftime('%H:%M%S')
+            f.writelines(f'\n{name},{dateTimeString}')      # write name, date time in a new line
+
+markAttendance('a')
+
 # run encoding function
 encodeListForKnownFaces = findEncodings(images)
 print('Encoding completed!')
@@ -49,7 +66,7 @@ while True:     # to get each frame one by one
     facesLocationsInCurrFrame = face_recognition.face_locations(imgSmall)  # capture all the face location in the current frame
 
     # then we send these location to the encoding function
-    encodeFacesInCurrFrame =  face_recognition.face_encodings(imgSmall, facesLocations)
+    encodeFacesInCurrFrame =  face_recognition.face_encodings(imgSmall, facesLocationsInCurrFrame)
 
     # find matches
     # iterate through all the faces that we have found in the current frame
@@ -71,6 +88,7 @@ while True:     # to get each frame one by one
             cv2.rectangle(img, (x1, y1), (x2, y2), (255,255,0), 2)
             cv2.rectangle(img, (x1, y2-35), (x2, y2), (255,255,0), 2)  # rectangle to display name
             cv2.putText(img, name, (x1+6, y2-6), cv2.FONT_HERSHEY_COMPLEX, 1, (255,255,255), 2)
+            markAttendance(name)
 
     cv2.imshow('webcam', img)   # show the original image
     cv2.waitKey(1)
