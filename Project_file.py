@@ -5,7 +5,9 @@ import face_recognition
 imgBlake = face_recognition.load_image_file('./images/Blake Lively.jpg')    # load training image
 imgBlake = cv2.cvtColor(imgBlake, cv2.COLOR_BGR2RGB)     # convert to RGB
 
-imageTest = face_recognition.load_image_file('./images/Blake Lively Test.jpg')    # load testing image
+# imageTest = face_recognition.load_image_file('./images/Blake Lively Test.jpg')    # load testing image
+# imageTest = face_recognition.load_image_file('./images/Emma Stone.jpg')    # load testing image
+imageTest = face_recognition.load_image_file('./images/Blake Lively1.jpg')    # load testing image
 imageTest = cv2.cvtColor(imageTest, cv2.COLOR_BGR2RGB)     # convert to RGB
 
 faceLoc = face_recognition.face_locations(imgBlake)[0]  # capture the face location
@@ -22,6 +24,6 @@ results = face_recognition.compare_faces([encodeBlake], encodeTest)
 print(results)
 
 cv2.imshow('Blake Original', imgBlake)
-cv2.imshow('Blake Test', imageTest)
+cv2.imshow('Test', imageTest)
 cv2.waitKey(0)
 
