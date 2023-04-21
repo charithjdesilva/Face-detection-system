@@ -44,3 +44,9 @@ Also, we encode the image with face_encoding()
 Then we compare the encodings, we use Linear SVM to find out whether they match or not
 results = face_recognition.compare_faces(known_face_encodings, face_encoding_to_check) we can give a list of face encoidngs
 
+We will get a results either true or false. But we want to find out how similar these images are. Then we can find a best match. To do that we can find the distance 'face_distance'. The lower the distanc, the better the match is.
+
+Then we display the value rounded up to 2 decimal places on the actual results image, alongside the name of the person.
+
+
+
