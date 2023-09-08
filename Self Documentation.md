@@ -1,6 +1,6 @@
 Introduction to the System
 
-First we have to detect the face. TO that we use HOG(Histogram of Oriented Gradients) method.
+First we have to detect the face. To achieve that we use HOG(Histogram of Oriented Gradients) method.
 
 Then we draw a bounding box around the face.
 
